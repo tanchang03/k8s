@@ -22,3 +22,4 @@ kubectl scale --replicas=1 deploy/nginx-deployment
 ```shell
 kubectl exec -it nginx-deployment-774f96d4d9-5t7n6 /bin/sh
 ```
+
