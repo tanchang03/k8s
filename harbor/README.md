@@ -1,12 +1,12 @@
 参考：https://www.cnblogs.com/hahaha111122222/p/16113462.html
 
-1.create pv & pvc
+## 1.create pv & pvc
 ```shell
 kubectl apply -f ./pv.yaml 
 kubectl apply -f ./pvc.yaml 
 
 ```
-2.create secret
+## 2.create secret
 
 
 ```shell
@@ -63,13 +63,13 @@ Getting CA Private Key
 
 ```
 
-3.install harbor by helm
+## 3.install harbor by helm
 ```shell
 helm install harbor ./harbor
 ```
 
 
-4.配置客户端-mac docker desktop环境
+## 4.配置客户端-mac docker desktop环境
 ```shell
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ./ca.crt
 ```
@@ -81,7 +81,7 @@ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keyc
 ```
 
 
-5.注意
+## 5.注意
 
 - pv对应的nfs目录，需要增加容器用户的可写入的权限，否则各种问题
 ```shell
@@ -103,3 +103,10 @@ drwxrwxrwx 4 root root 34 5月  29 17:39 trivy
 
 ```
 
+- 如果trivy卡住不能扫描，可能是因为漏洞库需要翻墙更新，解决办法是可以在mac上安装trivy后，更新好漏洞库以后复制过去
+```shell
+brew install trivy
+trivy image alpine:3.4.10
+#开始更新，完毕后复制漏洞库到服务器
+scp -r ./trivy root@172.16.0.114:/home/nfs_store/harbor/trivy
+```
