@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capsule-demo-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: capsule-demo-app
+  template:
+    metadata:
+      labels:
+        app: capsule-demo-app
+      name: capsule-demo-pod
+    spec:
+      containers:
+        - name: capsule-demo-app
+          image: 10.199.253.212:5000/k8s/demo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MYSQL_HOST
+              # 使用环境变量+DNS的方式来访问redis、mysql等其他service暴露的服务
+              # 这里环境变量的格式就是service-name.namespace.svc.cluster.local
+              # 当redis、mysql暴露为服务后，会注册到DNS中，之后可以使用DNS的方式来访问服务
+              # nslookup domain可以测试是否正确注册DNS
+              value: mysql-service.default.svc.cluster.local
+            - name: REDIS_HOST
+              value: redis-service.default.svc.cluster.local
+            - name: SPRING_PROFILES_ACTIVE
+              value: 'prodk8s'

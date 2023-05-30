@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap-02
+data:
+  {{- $files := .Files }}
+  {{- range tuple "config/config1.toml" "config/config2.toml" "config/config3.toml" }}
+  {{ . | base }}: |-
+        {{ $files.Get . }}
+  {{- end }}

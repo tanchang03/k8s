@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: capsule-demo-app-service
+spec:
+  type: NodePort
+  selector:
+    app: capsule-demo-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 32141

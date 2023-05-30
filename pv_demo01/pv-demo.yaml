@@ -1,3 +1,24 @@
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: pv001
+#  labels:
+#    name: pv001
+#spec:
+#  nfs:
+#    path: /home/nfs_store
+#    server: 172.16.0.111
+#  accessModes: ["ReadWriteMany","ReadWriteOnce"]
+#  persistentVolumeReclaimPolicy: Retain
+#  capacity:
+#    storage: 20Gi
+
+
+#  mountOptions 是 PersistentVolume 中的一个字段，它指定了用于将持久卷挂载到容器中的选项。在这个示例中，mountOptions 包括两个选项：hard 和 nfsvers=4.1。
+#
+#  hard 表示如果出现任何错误，例如网络故障，I/O 错误等，将重试持续连接，直到成功或达到最大尝试次数为止。这是与 soft 相反的一种选项。
+#  nfsvers=4.1 指定使用 NFS 协议的版本 4.1 进行挂载操作。
+#  这些选项对于确保挂载的可靠性和持久性非常重要。
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -5,10 +26,14 @@ metadata:
   labels:
     name: pv001
 spec:
+  capacity:
+    storage: 20Gi
+  accessModes: ["ReadWriteMany","ReadWriteOnce"]
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  mountOptions:
+    - hard
+    - nfsvers=4.1
   nfs:
     path: /home/nfs_store
     server: 172.16.0.111
-  accessModes: ["ReadWriteMany","ReadWriteOnce"]
-  persistentVolumeReclaimPolicy: Recycle
-  capacity:
-    storage: 20Gi
