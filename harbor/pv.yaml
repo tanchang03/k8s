@@ -1,0 +1,125 @@
+#registry-PV
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: harbor-registry
+  labels:
+    app: harbor-registry
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "hub"
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /home/nfs_store/harbor/registry
+    server: 172.16.0.114
+---
+#harbor-chartmuseum-pv
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: harbor-chartmuseum
+  labels:
+    app: harbor-chartmuseum
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "hub"
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /home/nfs_store/harbor/chartmuseum
+    server: 172.16.0.114
+---
+#harbor-jobservice-pv
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: harbor-jobservice
+  labels:
+    app: harbor-jobservice
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "hub"
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /home/nfs_store/harbor/jobservice
+    server: 172.16.0.114
+---
+#harbor-database-pv
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: harbor-database
+  labels:
+    app: harbor-database
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "hub"
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /home/nfs_store/harbor/database
+    server: 172.16.0.114
+---
+#harbor-redis-pv
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: harbor-redis
+  labels:
+    app: harbor-redis
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "hub"
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /home/nfs_store/harbor/redis
+    server: 172.16.0.114
+---
+#harbor-trivy-pv
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: harbor-trivy
+  labels:
+    app: harbor-trivy
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "hub"
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /home/nfs_store/harbor/trivy
+    server: 172.16.0.114
